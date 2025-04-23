@@ -1,0 +1,67 @@
+header {
+  width: 100%;
+  height: 300px;
+  background-image: url("/assets/img/restaurant-banner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 120px;
+}
+@media (max-width: 825px) {
+  header {
+    height: 200px;
+    margin-bottom: 150px;
+  }
+}
+header .restaurant-info {
+  position: absolute;
+  top: 200px;
+  left: 75px;
+  width: 675px;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 825px) {
+  header .restaurant-info {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    left: 0;
+    top: 100px;
+  }
+}
+header .restaurant-info .restaurant-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 7px solid white;
+  background-color: #5a5a5a;
+  overflow: hidden;
+}
+header .restaurant-info .restaurant-img img {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .restaurant-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+header .restaurant-info .restaurant-name {
+  margin-left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 75px;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .restaurant-name {
+    margin-top: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+}
