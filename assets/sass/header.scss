@@ -13,9 +13,11 @@ header {
 
     margin-bottom: 120px;
 
+    background-color: red;
+
     @include m.medium-screen {
         height: 200px;
-        margin-bottom: 150px;
+        margin-bottom: 200px;
     }
 
     .restaurant-info {
@@ -23,7 +25,7 @@ header {
         top: 200px;
         left: 75px;
 
-        width: 675px;
+        max-width: calc(100vw - 200px);
         height: 200px;
 
         display: flex;
@@ -36,6 +38,7 @@ header {
             flex-direction: column;
             align-items: center;
 
+            max-width: 100%;
             width: 100%;
             height: auto;
             left: 0;
@@ -48,7 +51,7 @@ header {
             border-radius: 50%;
 
             border: 7px solid white;
-    
+
             background-color: v.$secondary-color;
 
             overflow: hidden;
@@ -64,18 +67,75 @@ header {
             }
         }
 
-        .restaurant-name {
-            margin-left: 20px;
-            font-size: 1.5rem;
-            font-weight: bold;
+        .info {
+            max-width: calc(100vw - 500px);
+
+            .restaurant-name {
+                margin-left: 20px;
+                font-size: 1.5rem;
+                font-weight: bold;
+
+                width: 100%;
+                margin-top: 75px;
 
 
-            margin-top: 75px;
+                h1 {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                @include m.medium-screen {
+                    margin-top: 0;
+                    margin-left: 0;
+                    text-align: center;
+                }
+            }
+
+            .ubi-phone {
+                display: flex;
+                gap: 3rem;
+                align-items: center;
+                justify-content: center; 
+                width: 100%;
+                margin-left: 20px;
+
+                @include m.medium-screen {
+                    flex-direction: column;
+                    gap: 0;
+                    padding-left: 0;
+                    margin-left: 0;
+                }
+
+                .restaurant-address {
+                    width: calc(100% - 150px);
+                    display: flex;
+
+                    img {
+                        width: 25px;
+                        height: 25px;
+                        margin-right: 5px;
+                    }
+                    p {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .restaurant-phone {
+                    display: flex;
+
+                    img {
+                        width: 25px;
+                        height: 25px;
+                        margin-right: 5px;
+                    }
+                }
+            }
 
             @include m.medium-screen {
-                margin-top: 0;
-                margin-left: 0;
-                text-align: center;
+                max-width: 100%;
             }
         }
     }

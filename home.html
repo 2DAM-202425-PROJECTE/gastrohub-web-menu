@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +14,15 @@
     <link rel="stylesheet" href="assets/css/sections/products.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-<script src="assets/js/backend.js"></script>
-<script src="assets/js/product-cards.js"></script>
+    <script src="assets/js/backend.js"></script>
+    <script src="assets/js/product-cards.js"></script>
 </head>
+
 <body>
 
     <header>
@@ -27,12 +31,25 @@
             <div class="restaurant-img">
                 <img src="assets/img/restaurant-pfp.avif" alt="Restaurant Image">
             </div>
-        
-            <div class="restaurant-name">
-                <h1>Restaurant Name</h1>
+            <div class="info">
+                <div class="restaurant-name">
+                    <h1>Restaurant Name</h1>
+                </div>
+                <div class="ubi-phone">
+                    <div class="restaurant-address">
+                        <img src="assets/img/location-icon.png" alt="Location">
+                        <p>Location</p>
+                    </div>
+                    <div class="restaurant-phone">
+                        <img src="assets/img/phone-icon.png" alt="Phone">
+                        <p>+1 234 567 890</p>
+                    </div>
+                </div>
             </div>
         </div>
-    
+
+        </div>
+
     </header>
 
     <section class="buscador">
@@ -52,11 +69,13 @@
         <div class="filtros">
             <p>Allergens</p>
             <ul>
-                <li><input type="checkbox" id="gluten" name="gluten"><label for="gluten"><img src="assets/img/gluten-free.svg" alt="Gluten Free" /></label></li>
-                <li><input type="checkbox" id="lactose" name="lactose"><label for="lactose"><img src="assets/img/lactose-free.svg" alt="Lactose Free" /></label></li>
+                <li><input type="checkbox" id="gluten" name="gluten"><label for="gluten"><img
+                            src="assets/img/gluten-free.svg" alt="Gluten Free" /></label></li>
+                <li><input type="checkbox" id="lactose" name="lactose"><label for="lactose"><img
+                            src="assets/img/lactose-free.svg" alt="Lactose Free" /></label></li>
             </ul>
         </div>
-        
+
 
     </section>
 
@@ -79,7 +98,8 @@
                 <img src="assets/img/restaurant-dish2.png" alt="Dish 2">
                 <div class="allergens">
                     <img style="display: block;" id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
+                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg"
+                        alt="Lactose Free" />
                 </div>
             </div>
             <h1 class="dish-name">Dish Name</h1>
@@ -87,7 +107,7 @@
             <p class="dish-price">$10.00</p>
         </div>
 
-                <div class="product-card">
+        <div class="product-card">
             <div class="product-img">
                 <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
                 <div class="allergens">
@@ -118,7 +138,8 @@
                 <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
                 <div class="allergens">
                     <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
+                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg"
+                        alt="Lactose Free" />
                 </div>
             </div>
             <h1 class="dish-name">Dish Name</h1>
@@ -183,7 +204,7 @@
     <footer>
         <p>© 2025 <span>GastroHub</span>. All rights reserved.</p>
     </footer>
-    
+
 </body>
 
 </html>

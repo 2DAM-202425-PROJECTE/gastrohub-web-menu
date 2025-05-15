@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let restaurantData = [];
 
 
-    fetch(`http://192.168.201.115:8001/api/restaurant/getWebMenu/${id}`)
+    fetch(`http://localhost:8001/api/restaurant/getWebMenu/${id}`)
         .then(response => response.json())
         .then(data => {
             console.log(decrypt(data['encrypted'], key, iv)
@@ -88,7 +88,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setData() {
         const restaurantName = document.querySelector('.restaurant-name h1');
+        const restaurantAddress = document.querySelector('.restaurant-address p');
+        const restaurantPhone = document.querySelector('.restaurant-phone p');
         restaurantName.innerHTML = restaurantData.name;
+        restaurantAddress.innerHTML = restaurantData.address;
+        restaurantPhone.innerHTML = restaurantData.phone;
+
+        const header = document.querySelector('header');
+        header.style.backgroundImage = `url(data:image/png;base64,${restaurantData.banner})`;
+
+
+        if (restaurantData.banner === null || restaurantData.banner === "") {
+            header.style.backgroundImage = `url(assets/img/default-banner.png)`;
+        }
+
 
         document.title = restaurantData.name;
 
@@ -98,6 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const restaurantImg = document.querySelector('.restaurant-img img');
         restaurantImg.src = "data:image/png;base64," + restaurantData.logo;
+
+        if (restaurantData.logo === null || restaurantData.logo === "") {
+            restaurantImg.src = "assets/img/default-pfp.jpg";
+        }
 
         const productContainer = document.querySelector('section.products');
 
@@ -147,14 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
             allergensDiv.appendChild(lactoseFree);
 
             productImg.appendChild(allergensDiv);
-
-
-
-
-
-
-
-
 
             productImg.appendChild(img);
             productCard.appendChild(productImg);
