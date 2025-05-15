@@ -6,6 +6,7 @@ section.products {
   justify-content: center;
   flex-wrap: wrap;
   padding: 0 5px;
+  min-height: calc(100vh - 625px);
 }
 section.products .product-card {
   display: flex;

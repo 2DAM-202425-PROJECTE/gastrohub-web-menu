@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="assets/css/sections/buscador.css">
     <link rel="stylesheet" href="assets/css/sections/products.css">
+    <link rel="stylesheet" href="assets/css/sections/loading.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,62 +26,70 @@
 
 <body>
 
-    <header>
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Cargando menú...</p>
+        </div>
+    </div>
 
-        <div class="restaurant-info">
-            <div class="restaurant-img">
-                <img src="assets/img/restaurant-pfp.avif" alt="Restaurant Image">
-            </div>
-            <div class="info">
-                <div class="restaurant-name">
-                    <h1>Restaurant Name</h1>
+    <div id="main-content" style="display: none;">
+        <header>
+            <div class="restaurant-info">
+                <div class="restaurant-img">
+                    <img src="assets/img/default-pfp.jpg" alt="Restaurant Image">
                 </div>
-                <div class="ubi-phone">
-                    <div class="restaurant-address">
-                        <img src="assets/img/location-icon.png" alt="Location">
-                        <p>Location</p>
+                <div class="info">
+                    <div class="restaurant-name">
+                        <h1>Restaurant Name</h1>
                     </div>
-                    <div class="restaurant-phone">
-                        <img src="assets/img/phone-icon.png" alt="Phone">
-                        <p>+1 234 567 890</p>
+                    <div class="ubi-phone">
+                        <div class="restaurant-address">
+                            <img src="assets/img/location-icon.png" alt="Location">
+                            <p>Location</p>
+                        </div>
+                        <div class="restaurant-phone">
+                            <img src="assets/img/phone-icon.png" alt="Phone">
+                            <p>Telephone</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        </div>
-
-    </header>
-
-    <section class="buscador">
-
-        <div class="buscador-container">
-            <input type="text" placeholder="Search for a dish...">
-            <button type="submit"><img src="/assets/img/search.svg" alt="Search"></button>
-        </div>
-
-        <div class="select-category">
-            <p>Categories</p>
-            <select name="categories" id="categories">
-                <option value="all">All</option>
-            </select>
-        </div>
-
-        <div class="filtros">
-            <p>Allergens</p>
-            <ul>
-                <li><input type="checkbox" id="gluten" name="gluten"><label for="gluten"><img
-                            src="assets/img/gluten-free.svg" alt="Gluten Free" /></label></li>
-                <li><input type="checkbox" id="lactose" name="lactose"><label for="lactose"><img
-                            src="assets/img/lactose-free.svg" alt="Lactose Free" /></label></li>
-            </ul>
-        </div>
 
 
-    </section>
 
-    <section class="products">
-        <div class="product-card">
+        </header>
+
+        <section class="buscador">
+
+            <div class="buscador-container">
+                <input type="text" placeholder="Search for a dish...">
+                <button type="submit"><img src="/assets/img/search.svg" alt="Search"></button>
+            </div>
+
+            <div class="select-category">
+                <p>Categories</p>
+                <select name="categories" id="categories">
+                    <option value="all">All</option>
+                </select>
+            </div>
+
+            <div class="filtros">
+                <p>Allergens</p>
+                <ul>
+                    <li><input type="checkbox" id="gluten" name="gluten"><label for="gluten"><img
+                                src="assets/img/gluten-free.svg" alt="Gluten Free" /></label></li>
+                    <li><input type="checkbox" id="lactose" name="lactose"><label for="lactose"><img
+                                src="assets/img/lactose-free.svg" alt="Lactose Free" /></label></li>
+                </ul>
+            </div>
+
+
+        </section>
+
+        <section class="products">
+
+            <!-- <div class="product-card">
             <div class="product-img">
                 <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
                 <div class="allergens">
@@ -91,119 +100,14 @@
             <h1 class="dish-name">Dish Name</h1>
             <p class="dish-ingredients">Ingredients of the dish</p>
             <p class="dish-price">$10.00</p>
-        </div>
+        </div> -->
 
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish2.png" alt="Dish 2">
-                <div class="allergens">
-                    <img style="display: block;" id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg"
-                        alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
+        </section>
 
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
-                <div class="allergens">
-                    <img style="display: block;" id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish2.png" alt="Dish 2">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img style="display: block;" id="lactose-free" src="assets/img/lactose-free.svg"
-                        alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish2.png" alt="Dish 2">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish2.png" alt="Dish 2">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img">
-                <img src="assets/img/restaurant-dish.jpg" alt="Dish 1">
-                <div class="allergens">
-                    <img id="gluten-free" src="assets/img/gluten-free.svg" alt="Gluten Free" />
-                    <img id="lactose-free" src="assets/img/lactose-free.svg" alt="Lactose Free" />
-                </div>
-            </div>
-            <h1 class="dish-name">Dish Name</h1>
-            <p class="dish-ingredients">Ingredients of the dish</p>
-            <p class="dish-price">$10.00</p>
-        </div>
-
-    </section>
-
-    <footer>
-        <p>© 2025 <span>GastroHub</span>. All rights reserved.</p>
-    </footer>
+        <footer>
+            <p>© 2025 <span>GastroHub</span>. All rights reserved.</p>
+        </footer>
+    </div>
 
 </body>
 
