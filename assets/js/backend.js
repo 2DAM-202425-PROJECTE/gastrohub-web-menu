@@ -5,26 +5,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Verificar que los elementos existen
   if (!loadingScreen || !mainContent) {
-    console.error("No se encontraron los elementos de carga o contenido principal")
+    //console.error("No se encontraron los elementos de carga o contenido principal")
     return
   }
 
-  console.log("Iniciando carga de datos...")
+  //console.log("Iniciando carga de datos...")
 
   let id
   // obtener id de la url
   try {
     const urlParams = new URLSearchParams(window.location.search)
     id = urlParams.get("id").split("-")[0]
-    console.log(id)
+    //console.log(id)
 
     // Si no hay ID, redirigir a 404
     if (!id) {
-      window.location.href = "404.html"
+      window.location.href = "404"
       return
     }
   } catch (error) {
-    window.location.href = "404.html"
+    window.location.href = "404"
     return
   }
 
@@ -58,6 +58,33 @@ document.addEventListener("DOMContentLoaded", () => {
     return decoder.decode(decryptedBuffer)
   }
 
+  // Función para convertir coordenadas a dirección legible
+  async function getFormattedAddress(coordsString) {
+    try {
+      const [lat, lon] = coordsString.split(",").map((coord) => coord.trim())
+
+      if (!lat || !lon) {
+        //console.error("Formato de coordenadas inválido:", coordsString)
+        return coordsString
+      }
+
+      const apiKeyLocation = import.meta.env.VITE_API_KEY_LOCATION;
+
+      const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKeyLocation}`)
+      const data = await response.json()
+
+      if (data.results && data.results.length > 0) {
+        return data.results[0].formatted
+      } else {
+        //console.warn("No se encontró dirección para las coordenadas:", coordsString)
+        return coordsString
+      }
+    } catch (error) {
+      //console.error("Error al obtener la dirección formateada:", error)
+      return coordsString
+    }
+  }
+
   const key = "1234567890123456" // debe coincidir con el backend
   const iv = "1234567890123456" // debe coincidir con el backend
 
@@ -77,10 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Establecer un tiempo máximo de carga (10 segundos)
   const loadingTimeout = setTimeout(() => {
     // Si después de 10 segundos no se han cargado los datos, redirigir a 404
-    window.location.href = "404.html"
+    window.location.href = "404"
   }, 10000)
 
-  fetch(`http://localhost:8001/api/restaurant/getWebMenu/${id}`)
+  fetch(`https://gastrohub-backend.onrender.com/api/restaurant/getWebMenu/${id}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok")
@@ -92,11 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       decrypt(data["encrypted"], key, iv)
         .then((decrypted) => {
-          console.log("Datos desencriptados correctamente")
+          //console.log("Datos desencriptados correctamente")
 
           try {
             const parsedData = JSON.parse(decrypted)
-            console.log("Datos parseados:", parsedData)
+            //console.log("Datos parseados:", parsedData)
 
             products = parsedData["products"]
             productIngredientMap = parsedData["productIngredientMap"]
@@ -107,23 +134,23 @@ document.addEventListener("DOMContentLoaded", () => {
             setupEventListeners()
 
             // Ocultar pantalla de carga y mostrar contenido después de procesar los datos
-            console.log("Ocultando pantalla de carga...")
+            //console.log("Ocultando pantalla de carga...")
             loadingScreen.style.display = "none"
             mainContent.style.display = "block"
-            console.log("Contenido principal mostrado")
+            //console.log("Contenido principal mostrado")
           } catch (error) {
-            console.error("Error al procesar los datos JSON:", error)
-            window.location.href = "404.html"
+            //console.error("Error al procesar los datos JSON:", error)
+            window.location.href = "404"
           }
         })
         .catch((err) => {
-          console.error("Error al desencriptar:", err)
-          window.location.href = "404.html"
+          //console.error("Error al desencriptar:", err)
+          window.location.href = "404"
         })
     })
     .catch((error) => {
-      console.error("Error fetching data:", error)
-      window.location.href = "404.html"
+      //console.error("Error fetching data:", error)
+      window.location.href = "404"
     })
 
   function setupEventListeners() {
@@ -195,14 +222,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ahora mostramos productos que CONTIENEN el alérgeno seleccionado
       if (glutenFilter || lactoseFilter) {
         const ingredientIds = productIngredientMap[product.id_product] || []
-        let hasGluten = false
-        let hasLactose = false
+        let hasGluten = true
+        let hasLactose = true
 
         ingredientIds.forEach((entry) => {
           const ingredient = ingredientMap[entry.id_ingredient]
           if (ingredient) {
-            if (ingredient.gluten) hasGluten = true
-            if (ingredient.lactose) hasLactose = true
+            if (!ingredient.gluten) hasGluten = false
+            if (!ingredient.lactose) hasLactose = false
           }
         })
 
@@ -222,12 +249,33 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  function setData() {
+  async function setData() {
     const restaurantName = document.querySelector(".restaurant-name h1")
     const restaurantAddress = document.querySelector(".restaurant-address p")
     const restaurantPhone = document.querySelector(".restaurant-phone p")
+
     restaurantName.innerHTML = restaurantData.name
-    restaurantAddress.innerHTML = restaurantData.address
+
+    // Verificar si la dirección tiene formato de coordenadas
+    if (
+      restaurantData.address &&
+      restaurantData.address.match(
+        /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/,
+      )
+    ) {
+      // Es un formato de coordenadas, intentar convertirlo a dirección legible
+      try {
+        const formattedAddress = await getFormattedAddress(restaurantData.address)
+        restaurantAddress.innerHTML = formattedAddress
+      } catch (error) {
+        //console.error("Error al formatear la dirección:", error)
+        restaurantAddress.innerHTML = restaurantData.address // Usar la dirección original en caso de error
+      }
+    } else {
+      // No es formato de coordenadas, usar tal cual
+      restaurantAddress.innerHTML = restaurantData.address
+    }
+
     restaurantPhone.innerHTML = restaurantData.phone
 
     const header = document.querySelector("header")
@@ -268,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
       selector.appendChild(option)
     })
 
-    console.log(productCategories)
+    //console.log(productCategories)
 
     products.forEach((product) => {
       const productCard = document.createElement("div")
@@ -296,8 +344,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lactoseFree.src = "assets/img/lactose-free.svg"
       lactoseFree.alt = "Lactose Free"
 
-      glutenFree.style.display = "none"
-      lactoseFree.style.display = "none"
+      glutenFree.style.display = "block"
+      lactoseFree.style.display = "block"
 
       allergensDiv.appendChild(glutenFree)
       allergensDiv.appendChild(lactoseFree)
@@ -322,22 +370,35 @@ document.addEventListener("DOMContentLoaded", () => {
         return ingredient ? ingredient.name : "Desconocido"
       })
 
-      let hasGluten = false
-      let hasLactose = false
+      let hasGluten = true
+      let hasLactose = true
 
       ingredientIds.forEach((entry) => {
         const ingredient = ingredientMap[entry.id_ingredient]
         if (ingredient) {
-          if (ingredient.lactose) {
-            hasLactose = true
-            lactoseFree.style.display = "block"
+          if (!ingredient.lactose) {
+            hasLactose = false
+            lactoseFree.style.display = "none"
           }
-          if (ingredient.gluten) {
-            hasGluten = true
-            glutenFree.style.display = "block"
+          if (!ingredient.gluten) {
+            hasGluten = false
+            glutenFree.style.display = "none"
           }
         }
       })
+
+      if(!hasGluten){
+        glutenFree.style.display = "none"
+      } else{
+        glutenFree.style.display = "block"
+      }
+
+      if(!hasLactose){
+        lactoseFree.style.display = "none"
+      } else{
+        lactoseFree.style.display = "block"
+      }
+
 
       // Guardar información de alérgenos en atributos de datos
       productCard.dataset.hasGluten = hasGluten
@@ -378,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       const loadingScreen = document.getElementById("loading-screen")
       if (loadingScreen && loadingScreen.style.display !== "none") {
-        console.log("Forzando ocultación de la pantalla de carga después de 15 segundos")
+        //console.log("Forzando ocultación de la pantalla de carga después de 15 segundos")
         loadingScreen.style.display = "none"
         document.getElementById("main-content").style.display = "block"
       }
