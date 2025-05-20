@@ -1,0 +1,26 @@
+@use 'abstracts/variables' as v;
+@use 'abstracts/mixins' as m;
+
+
+footer {
+    background-color: v.$primary-color;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 50px;
+
+    p {
+        color: white;
+        font-size: 14px;
+        font-family: v.$font-stack;
+        text-align: center;
+        font-weight: 700;
+
+        span {
+            font-weight: bold;
+        }
+    }
+}

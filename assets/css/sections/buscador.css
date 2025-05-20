@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap");
+section.buscador {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 825px) {
+  section.buscador {
+    flex-direction: column;
+  }
+}
+section.buscador .buscador-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 600px;
+}
+@media (max-width: 825px) {
+  section.buscador .buscador-container {
+    width: 100%;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+}
+@media (max-width: 660px) {
+  section.buscador .buscador-container {
+    gap: 5px;
+  }
+}
+section.buscador .buscador-container input[type=text] {
+  width: 85%;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  transition: border 0.3s ease;
+  font-size: 18px;
+}
+section.buscador .buscador-container input[type=text]::placeholder {
+  color: #a37800;
+}
+section.buscador .buscador-container input[type=text]:focus {
+  outline: none;
+  border: 1px solid #a37800;
+}
+section.buscador .buscador-container button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: #a37800;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+section.buscador .buscador-container button img {
+  width: 35px;
+  height: 35px;
+}
+section.buscador .buscador-container button:hover {
+  background-color: rgb(214, 157.5460122699, 0);
+}
+section.buscador .select-category {
+  padding: 5px 10px;
+}
+section.buscador .select-category select {
+  width: 100%;
+  height: 25px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  font-size: 18px;
+  background-color: transparent;
+  color: #a37800;
+}
+section.buscador .select-category select:focus {
+  outline: none; /* Evita el borde de foco predeterminado */
+}
+section.buscador .select-category option {
+  width: 100%;
+  font-weight: 700;
+  font-family: "Special Gothic", sans-serif;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 50px;
+  color: #a37800;
+}
+section.buscador .select-category option:checked, section.buscador .select-category option:focus {
+  background-color: #a37800;
+  color: white;
+}
+section.buscador .filtros {
+  display: flex;
+  align-items: center;
+}
+section.buscador .filtros p {
+  color: black;
+  font-weight: bold;
+}
+section.buscador .filtros ul {
+  display: flex;
+  list-style: none;
+}
+section.buscador .filtros ul li {
+  position: relative;
+}
+section.buscador .filtros ul li input[type=checkbox] {
+  display: none;
+}
+section.buscador .filtros ul li label img {
+  width: 50px;
+  height: 50px;
+  transition: filter 0.3s ease-in-out;
+  cursor: pointer;
+}
+section.buscador .filtros ul li label img:hover {
+  filter: invert(0.6);
+}
+section.buscador .filtros ul li input[type=checkbox]:checked + label img {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(91%) saturate(500%) hue-rotate(120deg) brightness(95%) contrast(90%);
+}

@@ -1,0 +1,119 @@
+header {
+  width: 100%;
+  height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 120px;
+}
+@media (max-width: 825px) {
+  header {
+    height: 200px;
+    margin-bottom: 200px;
+  }
+}
+header .restaurant-info {
+  position: absolute;
+  top: 200px;
+  left: 75px;
+  max-width: calc(100vw - 200px);
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 825px) {
+  header .restaurant-info {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    left: 0;
+    top: 100px;
+  }
+}
+header .restaurant-info .restaurant-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 7px solid white;
+  background-color: #5a5a5a;
+  overflow: hidden;
+}
+header .restaurant-info .restaurant-img img {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .restaurant-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+header .restaurant-info .info {
+  max-width: calc(100vw - 500px);
+}
+header .restaurant-info .info .restaurant-name {
+  margin-left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 75px;
+}
+header .restaurant-info .info .restaurant-name h1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .info .restaurant-name {
+    margin-top: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+}
+header .restaurant-info .info .ubi-phone {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-left: 20px;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .info .ubi-phone {
+    flex-direction: column;
+    gap: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
+header .restaurant-info .info .ubi-phone .restaurant-address {
+  width: calc(100% - 150px);
+  display: flex;
+}
+header .restaurant-info .info .ubi-phone .restaurant-address img {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+header .restaurant-info .info .ubi-phone .restaurant-address p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+header .restaurant-info .info .ubi-phone .restaurant-phone {
+  display: flex;
+}
+header .restaurant-info .info .ubi-phone .restaurant-phone img {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+@media (max-width: 825px) {
+  header .restaurant-info .info {
+    max-width: 100%;
+  }
+}
