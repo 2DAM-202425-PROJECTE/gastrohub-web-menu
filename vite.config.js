@@ -1,33 +1,73 @@
+// vite.config.js
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
+  // Configuración básica
   build: {
-    // Directorio de salida
     outDir: 'dist',
-    
-    // Copiar todos los archivos de la carpeta public sin transformación
+    emptyOutDir: true, // Limpia el directorio de salida antes de construir
     copyPublicDir: true,
     
-    // Asegurar que se incluyan todos los assets
+    // No convertir imágenes a base64
     assetsInlineLimit: 0,
     
-    // Configuración para asegurar que se incluyan todos los archivos HTML
+    // Configuración para mantener la estructura de carpetas
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        404: resolve(__dirname, '404.html'),
-        // Añade aquí cualquier otro archivo HTML que necesites incluir
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Mantener la estructura para imágenes
+          if (/\.(png|jpe?g|gif|svg|webp|ico)$/.test(assetInfo.name)) {
+            return 'assets/img/[name].[hash].[ext]'
+          }
+          
+          // Para otros tipos de archivos
+          const extType = {
+            'css': 'css',
+            'js': 'js',
+            'woff': 'fonts',
+            'woff2': 'fonts',
+            'ttf': 'fonts',
+            'eot': 'fonts',
+            'mp4': 'videos',
+            'webm': 'videos',
+            'mp3': 'audio',
+            'wav': 'audio'
+          }
+          
+          const ext = assetInfo.name.split('.').pop()
+          const folder = extType[ext] || 'other'
+          
+          return `assets/${folder}/[name].[hash].[ext]`
+        }
       }
     }
   },
   
-  // Carpeta para archivos estáticos que se copiarán tal cual
+  // Carpeta para archivos estáticos
   publicDir: 'public',
   
-  // Base URL - importante para Netlify
+  // Base URL
   base: '/',
   
-  // Configuración para variables de entorno
-  envPrefix: 'VITE_'
+  // Resolver alias para facilitar las importaciones
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './'),
+      '@assets': resolve(__dirname, './assets'),
+      '@img': resolve(__dirname, './assets/img')
+    }
+  },
+  
+  // Configuración para SASS (ya que lo tienes instalado)
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Puedes añadir opciones de SASS aquí si es necesario
+      }
+    }
+  },
+  
+  // Configuración para variables de entorno (ya que tienes dotenv)
+  envPrefix: 'APP_'
 })
