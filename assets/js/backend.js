@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingTimeout = setTimeout(() => {
     // Si después de 10 segundos no se han cargado los datos, redirigir a 404
     window.location.href = "404"
-  }, 10000)
+  }, 90000)
 
   fetch(`https://gastrohub-backend.onrender.com/api/restaurant/getWebMenu/${id}`)
     .then((response) => {
@@ -443,6 +443,6 @@ document.addEventListener("DOMContentLoaded", () => {
         loadingScreen.style.display = "none"
         document.getElementById("main-content").style.display = "block"
       }
-    }, 15000) // 15 segundos como respaldo
+    }, 90000)
   })
 })
