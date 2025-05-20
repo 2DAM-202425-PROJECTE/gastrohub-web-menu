@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node copy-assets.js",
+    "build": "vite build && node copy-all-images.js",
     "serve": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +14,7 @@
   "description": "",
   "devDependencies": {
     "fs-extra": "^11.3.0",
+    "glob": "^10.4.5",
     "gulp": "^5.0.0",
     "gulp-sass": "^6.0.1",
     "sass": "^1.86.3",
