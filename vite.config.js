@@ -1,73 +1,49 @@
-// vite.config.js
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { defineConfig } from "vite"
+import { resolve } from "path"
+import dotenv from "dotenv"
+
+// Load environment variables from .env file
+dotenv.config()
 
 export default defineConfig({
-  // Configuración básica
+  // Set the base path - this is important for production builds
+  base: "./",
+
+  // Configure asset handling
   build: {
-    outDir: 'dist',
-    emptyOutDir: true, // Limpia el directorio de salida antes de construir
-    copyPublicDir: true,
-    
-    // No convertir imágenes a base64
-    assetsInlineLimit: 0,
-    
-    // Configuración para mantener la estructura de carpetas
+    outDir: "dist",
+    assetsDir: "assets",
+    // Ensure all assets are copied to the build directory
+    assetsInlineLimit: 0, // Don't inline any assets as data URLs
+    // Ensure assets are properly hashed and referenced
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          // Mantener la estructura para imágenes
-          if (/\.(png|jpe?g|gif|svg|webp|ico)$/.test(assetInfo.name)) {
-            return 'assets/img/[name].[hash].[ext]'
+          let extType = assetInfo.name.split(".").at(1)
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = "img"
+          } else if (/woff|woff2|eot|ttf|otf/i.test(extType)) {
+            extType = "fonts"
           }
-          
-          // Para otros tipos de archivos
-          const extType = {
-            'css': 'css',
-            'js': 'js',
-            'woff': 'fonts',
-            'woff2': 'fonts',
-            'ttf': 'fonts',
-            'eot': 'fonts',
-            'mp4': 'videos',
-            'webm': 'videos',
-            'mp3': 'audio',
-            'wav': 'audio'
-          }
-          
-          const ext = assetInfo.name.split('.').pop()
-          const folder = extType[ext] || 'other'
-          
-          return `assets/${folder}/[name].[hash].[ext]`
-        }
-      }
-    }
+          return `assets/${extType}/[name][extname]`
+        },
+        chunkFileNames: "assets/js/[name].js",
+        entryFileNames: "assets/js/[name].js",
+      },
+    },
   },
-  
-  // Carpeta para archivos estáticos
-  publicDir: 'public',
-  
-  // Base URL
-  base: '/',
-  
-  // Resolver alias para facilitar las importaciones
+
+  // Resolve file paths
   resolve: {
     alias: {
-      '@': resolve(__dirname, './'),
-      '@assets': resolve(__dirname, './assets'),
-      '@img': resolve(__dirname, './assets/img')
-    }
+      "@": resolve(__dirname, "./"),
+      "@assets": resolve(__dirname, "./assets"),
+    },
   },
-  
-  // Configuración para SASS (ya que lo tienes instalado)
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // Puedes añadir opciones de SASS aquí si es necesario
-      }
-    }
-  },
-  
-  // Configuración para variables de entorno (ya que tienes dotenv)
-  envPrefix: 'APP_'
+
+  // Configure environment variables
+  envPrefix: "VITE_",
+
+  // Ensure public directory is copied as-is
+  publicDir: "public",
 })

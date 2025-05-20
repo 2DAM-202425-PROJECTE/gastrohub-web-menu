@@ -2,9 +2,10 @@
   "name": "gastrohub-webs",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node copy-all-images.js",
+    "build": "vite build && node copy-assets.js && node copy-404.js",
     "serve": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,8 +14,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "fs-extra": "^11.3.0",
-    "glob": "^10.4.5",
+    "fs-extra": "^11.2.0",
     "gulp": "^5.0.0",
     "gulp-sass": "^6.0.1",
     "sass": "^1.86.3",

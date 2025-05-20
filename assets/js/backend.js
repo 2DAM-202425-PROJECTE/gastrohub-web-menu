@@ -9,22 +9,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return
   }
 
+  // Check if we're on the 404 page to prevent redirect loops
+  if (window.location.pathname.includes("404")) {
+    // We're already on the 404 page, don't execute the rest of the script
+    return
+  }
+
   //console.log("Iniciando carga de datos...")
 
   let id
   // obtener id de la url
   try {
     const urlParams = new URLSearchParams(window.location.search)
-    id = urlParams.get("id").split("-")[0]
-    //console.log(id)
+    id = urlParams.get("id")
 
     // Si no hay ID, redirigir a 404
     if (!id) {
-      window.location.href = "404"
+      window.location.replace("./404")
       return
     }
+
+    // Split the ID if it contains a hyphen
+    id = id.split("-")[0]
   } catch (error) {
-    window.location.href = "404"
+    window.location.replace("./404")
     return
   }
 
@@ -68,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return coordsString
       }
 
-      const apiKeyLocation = import.meta.env.VITE_API_KEY_LOCATION;
+      const apiKeyLocation = import.meta.env.VITE_API_KEY_LOCATION
 
       const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKeyLocation}`)
       const data = await response.json()
@@ -104,8 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Establecer un tiempo máximo de carga (10 segundos)
   const loadingTimeout = setTimeout(() => {
     // Si después de 10 segundos no se han cargado los datos, redirigir a 404
-    window.location.href = "404"
-  }, 90000)
+    window.location.replace("./404")
+  }, 10000)
 
   fetch(`https://gastrohub-backend.onrender.com/api/restaurant/getWebMenu/${id}`)
     .then((response) => {
@@ -140,17 +148,17 @@ document.addEventListener("DOMContentLoaded", () => {
             //console.log("Contenido principal mostrado")
           } catch (error) {
             //console.error("Error al procesar los datos JSON:", error)
-            window.location.href = "404"
+            window.location.replace("./404")
           }
         })
         .catch((err) => {
           //console.error("Error al desencriptar:", err)
-          window.location.href = "404"
+          window.location.replace("./404")
         })
     })
     .catch((error) => {
       //console.error("Error fetching data:", error)
-      window.location.href = "404"
+      window.location.replace("./404")
     })
 
   function setupEventListeners() {
@@ -282,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     header.style.backgroundImage = `url(data:image/png;base64,${restaurantData.banner})`
 
     if (restaurantData.banner === null || restaurantData.banner === "") {
-      header.style.backgroundImage = `url(assets/img/default-banner.png)`
+      header.style.backgroundImage = `url(./assets/img/default-banner.png)`
     }
 
     document.title = restaurantData.name
@@ -291,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     restaurantImg.src = "data:image/png;base64," + restaurantData.logo
 
     if (restaurantData.logo === null || restaurantData.logo === "") {
-      restaurantImg.src = "assets/img/default-pfp.jpg"
+      restaurantImg.src = "./assets/img/default-pfp.jpg"
     }
 
     const productContainer = document.querySelector("section.products")
@@ -332,16 +340,16 @@ document.addEventListener("DOMContentLoaded", () => {
       img.alt = product.name
 
       if (product.image === null || product.image === "") {
-        img.src = "assets/img/default-dish.png"
+        img.src = "./assets/img/default-dish.png"
       }
 
       const allergensDiv = document.createElement("div")
       allergensDiv.classList.add("allergens")
       const glutenFree = document.createElement("img")
-      glutenFree.src = "assets/img/gluten-free.svg"
+      glutenFree.src = "./assets/img/gluten-free.svg"
       glutenFree.alt = "Gluten Free"
       const lactoseFree = document.createElement("img")
-      lactoseFree.src = "assets/img/lactose-free.svg"
+      lactoseFree.src = "./assets/img/lactose-free.svg"
       lactoseFree.alt = "Lactose Free"
 
       glutenFree.style.display = "block"
@@ -387,18 +395,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
 
-      if(!hasGluten){
+      if (!hasGluten) {
         glutenFree.style.display = "none"
-      } else{
+      } else {
         glutenFree.style.display = "block"
       }
 
-      if(!hasLactose){
+      if (!hasLactose) {
         lactoseFree.style.display = "none"
-      } else{
+      } else {
         lactoseFree.style.display = "block"
       }
-
 
       // Guardar información de alérgenos en atributos de datos
       productCard.dataset.hasGluten = hasGluten
@@ -443,6 +450,6 @@ document.addEventListener("DOMContentLoaded", () => {
         loadingScreen.style.display = "none"
         document.getElementById("main-content").style.display = "block"
       }
-    }, 90000)
+    }, 15000) // 15 segundos como respaldo
   })
 })
