@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     restaurantImg.src = "data:image/png;base64," + restaurantData.logo
 
     if (restaurantData.logo === null || restaurantData.logo === "") {
-      restaurantImg.src = "./assets/img/default-pfp.jpg"
+      restaurantImg.src = "./assets/img/default-pfp2.jpg"
     }
 
     const productContainer = document.querySelector("section.products")
